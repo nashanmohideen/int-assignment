@@ -24,19 +24,19 @@ export default function Carousel({ slides }: CarouselProps) {
       <div className="flex justify-center w-fit h-fit overflow-hidden bg-gray-800 border-4 border-gray-800 rounded-lg max-w-lg md:hidden md:justify-center lg:hidden transform transition ease-in duration-500 p-2">
         {slides[curr]}
       </div>
-      <div className="absolute inset-0 flex items-center justify-between p-1">
+      <div className="absolute inset-0 flex items-center justify-between p-1 ">
         <button onClick={prev}>
           <FaArrowLeft
             size={35}
             color="black"
-            className="p-1 rounded-full shadow bg-white bg-opacity-80 hover:bg-transparent"
+            className="p-1 rounded-full shadow bg-white bg-opacity-80 hover:bg-white hover:text-black"
           />
         </button>
         <button onClick={next}>
           <FaArrowRight
             size={35}
             color="black"
-            className="p-1 rounded-full shadow bg-white bg-opacity-80 hover:bg-transparent"
+            className="p-1 rounded-full shadow bg-white bg-opacity-80 hover:bg-white hover:text-black"
           />
         </button>
       </div>

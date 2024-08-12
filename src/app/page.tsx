@@ -10,6 +10,7 @@ import Image from "next/image";
 
 export default function Home() {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     fetch("https://hp-api.onrender.com/api/characters")
@@ -17,8 +18,10 @@ export default function Home() {
       .then((data) => {
         const urls = data.slice(0, 3).map((character: any) => character.image);
         setImageUrls(urls);
+        setLoading(false);
       })
       .catch((error) => console.error("Error fetching Images: ", error));
+    setLoading(false);
   }, []);
 
   const slides = imageUrls.map((url, index) => (
@@ -43,9 +46,16 @@ export default function Home() {
           impedit enim deserunt, libero nihil facere a numquam minus dolorem
           unde!
         </Text>
-        <div className="hidden md:grid md:grid-cols-3 lg:grid lg:grid-cols-3 w-fit h-fit items-center rounded-lg gap-2 bg-gray-800 p-3 ">
-          {slides}
-        </div>
+        {loading ? (
+          <div className="flex justify-center items-center h-60">
+            <div className="animate-spin border-t-4 border-blue-500 border-solid rounded-full w-16 h-16"></div>
+          </div>
+        ) : (
+          <div className="transition-all duration-500 ease-in-out hidden md:grid md:grid-cols-3 lg:grid lg:grid-cols-3 w-fit h-fit items-center rounded-lg gap-2 bg-gray-800 p-3 ">
+            {slides}
+          </div>
+        )}
+
         <Carousel slides={slides} />
         <Text text="Text 2">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
