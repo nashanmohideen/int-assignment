@@ -1,6 +1,6 @@
 function Banner() {
   return (
-    <div className="w-[800px] h-40 bg-purple-200 flex justify-center items-center">
+    <div className="w-full h-40 lg:w-[800px] bg-purple-200 flex justify-center items-center">
       <b>Banner</b>
     </div>
   );

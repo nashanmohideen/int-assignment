@@ -21,7 +21,7 @@ export default function Carousel({ slides }: CarouselProps) {
 
   return (
     <div className="overflow-hidden relative flex items-center">
-      <div className="flex justify-center w-full h-[200px] overflow-hidden bg-gray-800 border-4 border-gray-800 rounded-lg max-w-lg md:hidden md:justify-center lg:hidden transform transition ease-in duration-500 p-2">
+      <div className="flex justify-center w-fit h-fit overflow-hidden bg-gray-800 border-4 border-gray-800 rounded-lg max-w-lg md:hidden md:justify-center lg:hidden transform transition ease-in duration-500 p-2">
         {slides[curr]}
       </div>
       <div className="absolute inset-0 flex items-center justify-between p-1">
