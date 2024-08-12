@@ -15,7 +15,7 @@ const slides = imageUrls.map((url, index) => (
   <Image
     key={index}
     src={url}
-    alt="image"
+    alt={`Slide ${index + 1}`}
     width={200}
     height={200}
     className="rounded-r-lg rounded-l-sm p-3 object-center"
