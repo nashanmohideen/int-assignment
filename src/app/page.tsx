@@ -3,6 +3,7 @@ import Footer from "./components/footer";
 import Banner from "./components/banner";
 import Text from "./components/text";
 import Carousel from "./components/carousel";
+import Image from "next/image";
 
 const imageUrls = [
   "https://img.freepik.com/free-photo/elephant-walking-road_181624-23124.jpg?t=st=1722866581~exp=1722870181~hmac=51d8113a87e95d30d815a14cb517f0a259b4b1d33ae83cca34a82ba2d8ac0b55&w=900",
@@ -11,9 +12,12 @@ const imageUrls = [
 ];
 
 const slides = imageUrls.map((url, index) => (
-  <img
+  <Image
     key={index}
     src={url}
+    alt="image"
+    width={200}
+    height={200}
     className="rounded-r-lg rounded-l-sm p-3 object-center"
   />
 ));
