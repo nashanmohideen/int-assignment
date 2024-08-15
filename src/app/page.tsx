@@ -1,39 +1,69 @@
 "use client";
-
+// React and React-related imports
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+// Next.js imports
+import Image from "next/image";
+
+// Third-party library imports
+import { HeartIcon } from "@heroicons/react/24/outline";
+import { HeartIcon as SolidHeartIcon } from "@heroicons/react/24/solid";
+
+// Relative imports
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Banner from "./components/banner";
 import Text from "./components/text";
 import Carousel from "./components/carousel";
-import Image from "next/image";
+import ImageCard from "./components/ImageCard";
+import { toggleLike } from "./lib/features/likeSlice";
+import { RootState } from "./lib/store";
 
 export default function Home() {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const dispatch = useDispatch();
+  const likes = useSelector((state: RootState) => state.like.likes);
+  const counts = useSelector((state: RootState) => state.like.counts);
 
   useEffect(() => {
     fetch("https://hp-api.onrender.com/api/characters")
       .then((response) => response.json())
       .then((data) => {
-        const urls = data.slice(0, 3).map((character: any) => character.image);
+        const urls = data.slice(0, 3).map((character: any) => ({
+          url: character.image,
+          id: character.name,
+        }));
         setImageUrls(urls);
         setLoading(false);
       })
       .catch((error) => console.error("Error fetching Images: ", error));
-    setLoading(false);
   }, []);
 
-  const slides = imageUrls.map((url, index) => (
-    <Image
-      key={index}
-      src={url}
-      alt={`Slide ${index + 1}`}
-      width={250}
-      height={250}
-      className="rounded-r-lg rounded-l-sm p-3 object-center"
-    />
-  ));
+  useEffect(() => {
+    // Load likes from local storage and update Redux state
+    const savedLikes = JSON.parse(localStorage.getItem("likes") || "{}");
+    const savedCounts = JSON.parse(localStorage.getItem("counts") || "{}");
+
+    Object.keys(savedLikes).forEach((id) => {
+      if (savedLikes[id]) {
+        dispatch(toggleLike(id)); // Set initial likes in Redux
+      }
+    });
+    Object.keys(savedCounts).forEach((id) => {
+      if (savedCounts[id] !== undefined) {
+        dispatch(toggleLike(id)); // Set initial counts in Redux
+      }
+    });
+  }, [dispatch]);
+
+  useEffect(() => {
+    // Save likes to local storage
+    localStorage.setItem("likes", JSON.stringify(likes));
+  }, [likes]);
+
+  const slides = imageUrls.map(({ url, id }: any) => ({ url, id }));
 
   return (
     <div className="w-full">
@@ -52,11 +82,13 @@ export default function Home() {
           </div>
         ) : (
           <div className="transition-all duration-500 ease-in-out hidden md:grid md:grid-cols-3 lg:grid lg:grid-cols-3 w-fit h-fit items-center rounded-lg gap-2 bg-gray-800 p-3 ">
-            {slides}
+            {imageUrls.map(({ url, id }: any) => (
+              <ImageCard key={id} url={url} id={id} />
+            ))}
           </div>
         )}
 
-        <Carousel slides={slides} />
+        {!loading && <Carousel slides={slides} />}
         <Text text="Text 2">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
           similique quis sint. Doloribus, obcaecati laborum neque, dicta
