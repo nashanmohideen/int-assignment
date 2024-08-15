@@ -3,16 +3,15 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleLike } from "../lib/features/likeSlice";
 import { RootState } from "../lib/store";
-import { HeartIcon } from "@heroicons/react/24/outline";
+import { HeartIcon as OutlineHeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as SolidHeartIcon } from "@heroicons/react/24/solid";
 
 interface ImageCardProps {
   url: string;
   id: string;
 }
-const ImageCard = ({ url, id }: ImageCardProps) => {
-  //   console.log(url, id, "Success");
 
+const ImageCard = ({ url, id }: ImageCardProps) => {
   const dispatch = useDispatch();
   const likes = useSelector((state: RootState) => state.like.likes);
   const likeCount = useSelector(
@@ -41,7 +40,7 @@ const ImageCard = ({ url, id }: ImageCardProps) => {
         {likes[id] ? (
           <SolidHeartIcon className="h-6 w-6" />
         ) : (
-          <HeartIcon className="h-6 w-6" />
+          <OutlineHeartIcon className="h-6 w-6" />
         )}
       </button>
       <div className="absolute pl-2 bottom-4 left-3 text-white">
