@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import ImageCard from "./ImageCard";
 
 interface CarouselProps {
-  slides: React.ReactNode[];
-  children?: React.ReactNode;
+  slides: { url: string; id: string }[]; // Update the type here
 }
 
 export default function Carousel({ slides }: CarouselProps) {
+  // console.log(slides);
   const [curr, setCurr] = useState(0);
 
   const prev = () => {
@@ -19,27 +20,36 @@ export default function Carousel({ slides }: CarouselProps) {
     setCurr((curr) => (curr === slides.length - 1 ? 0 : curr + 1));
   };
 
+  if (slides.length === 0) {
+    return <div className="text-red-500">No images to display</div>; // Handle empty slides
+  }
+
   return (
     <div className="overflow-hidden relative flex items-center">
-      <div className="flex justify-center w-fit h-fit overflow-hidden bg-gray-800 border-4 border-gray-800 rounded-lg max-w-lg md:hidden md:justify-center lg:hidden transform transition ease-in duration-500 p-2">
-        {slides[curr]}
-      </div>
-      <div className="absolute inset-0 flex items-center justify-between p-1 ">
+      <div className="flex justify-center w-fit h-full overflow-hidden bg-gray-800 border-4 border-gray-800 rounded-lg max-w-lg md:hidden md:justify-center lg:hidden transform transition ease-in duration-500 p-2">
+        <ImageCard
+          url={slides[curr].url}
+          id={slides[curr].id}
+          key={slides[curr].id}
+        />
         <button onClick={prev}>
           <FaArrowLeft
             size={35}
             color="black"
-            className="p-1 rounded-full shadow bg-white bg-opacity-80 hover:bg-white hover:text-black"
+            className="absolute left-6 mt-1 p-1 top-6 rounded-full shadow bg-white bg-opacity-80 hover:bg-white hover:text-black"
           />
         </button>
         <button onClick={next}>
           <FaArrowRight
             size={35}
             color="black"
-            className="p-1 rounded-full shadow bg-white bg-opacity-80 hover:bg-white hover:text-black"
+            className="absolute right-6 mt-1 p-1 top-6 rounded-full shadow bg-white bg-opacity-80 hover:bg-white hover:text-black"
           />
         </button>
       </div>
+      {/* <div className="absolute inset-0 flex items-center justify-between p-1 ">
+       
+      </div> */}
       <div className="absolute bottom-4 right-0 left-0 bg-gray">
         <div className="flex items-center justify-center gap-2">
           {slides.map((_, i) => (
