@@ -3,8 +3,8 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleLike } from "../lib/features/likeSlice";
 import { RootState } from "../lib/store";
-import { HeartIcon as OutlineHeartIcon } from "@heroicons/react/24/outline";
-import { HeartIcon as SolidHeartIcon } from "@heroicons/react/24/solid";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 interface ImageCardProps {
   url: string;
@@ -38,9 +38,9 @@ const ImageCard = ({ url, id }: ImageCardProps) => {
         onClick={handleLikeClick}
       >
         {likes[id] ? (
-          <SolidHeartIcon className="h-6 w-6" />
+          <FavoriteIcon className="h-6 w-6" />
         ) : (
-          <OutlineHeartIcon className="h-6 w-6" />
+          <FavoriteBorderIcon className="h-6 w-6" />
         )}
       </button>
       <div className="absolute pl-2 bottom-4 left-3 text-white">

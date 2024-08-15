@@ -6,10 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 // Next.js imports
 import Image from "next/image";
 
-// Third-party library imports
-import { HeartIcon } from "@heroicons/react/24/outline";
-import { HeartIcon as SolidHeartIcon } from "@heroicons/react/24/solid";
-
 // Relative imports
 import Header from "./components/header";
 import Footer from "./components/footer";
