@@ -7,12 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 
 // Relative imports
-import Header from "./components/header";
-import Footer from "./components/footer";
-import Banner from "./components/banner";
-import Text from "./components/text";
-import Carousel from "./components/carousel";
-import ImageCard from "./components/ImageCard";
+import Header from "../components/header";
+import Footer from "../components/footer";
+import Banner from "../components/banner";
+import Text from "../components/text";
+import Carousel from "../components/carousel";
+import ImageCard from "../components/ImageCard";
 import { toggleLike } from "./lib/features/likeSlice";
 import { RootState } from "./lib/store";
 

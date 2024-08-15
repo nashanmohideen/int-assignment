@@ -1,10 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleLike } from "../lib/features/likeSlice";
-import { RootState } from "../lib/store";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import { toggleLike } from "../app/lib/features/likeSlice";
+import { RootState } from "../app/lib/store";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 interface ImageCardProps {
   url: string;
