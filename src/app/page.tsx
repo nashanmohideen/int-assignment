@@ -13,13 +13,14 @@ import Banner from "../components/banner";
 import Text from "../components/text";
 import Carousel from "../components/carousel";
 import ImageCard from "../components/ImageCard";
-import { toggleLike } from "./lib/features/likeSlice";
-import { RootState } from "./lib/store";
+import { setImages } from "./Redux/features/imageSlice";
+import { toggleLike } from "./Redux/features/likeSlice";
+import { RootState } from "./Redux/store";
 
 export default function Home() {
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const dispatch = useDispatch();
+  const images = useSelector((state: RootState) => state.image.images);
   const likes = useSelector((state: RootState) => state.like.likes);
   const counts = useSelector((state: RootState) => state.like.counts);
 
@@ -27,15 +28,16 @@ export default function Home() {
     fetch("https://hp-api.onrender.com/api/characters")
       .then((response) => response.json())
       .then((data) => {
-        const urls = data.slice(0, 3).map((character: any) => ({
+        const imageData = data.slice(0, 3).map((character: any) => ({
           url: character.image,
           id: character.name,
+          count: 0, // Initialize the count for each image
         }));
-        setImageUrls(urls);
+        dispatch(setImages(imageData)); // Dispatch the images to the Redux store
         setLoading(false);
       })
       .catch((error) => console.error("Error fetching Images: ", error));
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     // Load likes from local storage and update Redux state
@@ -59,7 +61,7 @@ export default function Home() {
     localStorage.setItem("likes", JSON.stringify(likes));
   }, [likes]);
 
-  const slides = imageUrls.map(({ url, id }: any) => ({ url, id }));
+  const slides = images.map(({ url, id }: any) => ({ url, id }));
 
   return (
     <div className="w-full">
@@ -78,8 +80,8 @@ export default function Home() {
           </div>
         ) : (
           <div className="transition-all duration-500 ease-in-out hidden md:grid md:grid-cols-3 lg:grid lg:grid-cols-3 w-fit h-fit items-center rounded-lg gap-2 bg-gray-800 p-3 ">
-            {imageUrls.map(({ url, id }: any) => (
-              <ImageCard key={id} url={url} id={id} />
+            {images.map(({ url, id }: any) => (
+              <ImageCard key={id} url={url} id={id} count={counts[id]} />
             ))}
           </div>
         )}
