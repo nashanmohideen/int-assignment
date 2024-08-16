@@ -13,8 +13,12 @@ import Banner from "../components/banner";
 import Text from "../components/text";
 import Carousel from "../components/carousel";
 import ImageCard from "../components/ImageCard";
-import { setImages } from "./Redux/features/imageSlice";
-import { toggleLike } from "./Redux/features/likeSlice";
+import {
+  toggleLike,
+  incrementCount,
+  decrementCount,
+  setImages,
+} from "./Redux/features/imageSlice";
 import { RootState } from "./Redux/store";
 
 export default function Home() {
@@ -40,28 +44,47 @@ export default function Home() {
   }, [dispatch]);
 
   useEffect(() => {
-    // Load likes from local storage and update Redux state
-    const savedLikes = JSON.parse(localStorage.getItem("likes") || "{}");
-    const savedCounts = JSON.parse(localStorage.getItem("counts") || "{}");
+    // Load likes and counts from local storage and update Redux state
+    const savedLikes = localStorage.getItem("likes");
+    const savedCounts = localStorage.getItem("counts");
 
-    Object.keys(savedLikes).forEach((id) => {
-      if (savedLikes[id]) {
+    // Safely parse JSON or fallback to empty object
+    const parsedLikes =
+      savedLikes && savedLikes !== "undefined" ? JSON.parse(savedLikes) : {};
+    const parsedCounts =
+      savedCounts && savedCounts !== "undefined" ? JSON.parse(savedCounts) : {};
+
+    // Apply parsed likes
+    Object.keys(parsedLikes).forEach((id) => {
+      if (parsedLikes[id]) {
         dispatch(toggleLike(id)); // Set initial likes in Redux
       }
     });
-    Object.keys(savedCounts).forEach((id) => {
-      if (savedCounts[id] !== undefined) {
-        dispatch(toggleLike(id)); // Set initial counts in Redux
+
+    // Apply parsed counts
+    Object.keys(parsedCounts).forEach((id) => {
+      if (parsedCounts[id] !== undefined) {
+        const count = parsedCounts[id];
+        if (count > 0) {
+          for (let i = 0; i < count; i++) {
+            dispatch(incrementCount(id));
+          }
+        } else {
+          for (let i = 0; i < -count; i++) {
+            dispatch(decrementCount(id));
+          }
+        }
       }
     });
   }, [dispatch]);
 
   useEffect(() => {
-    // Save likes to local storage
+    // Save likes and counts to local storage
     localStorage.setItem("likes", JSON.stringify(likes));
-  }, [likes]);
+    localStorage.setItem("counts", JSON.stringify(counts));
+  }, [likes, counts]);
 
-  const slides = images.map(({ url, id }: any) => ({ url, id }));
+  const slides = images.map(({ url, id, count }: any) => ({ url, id, count }));
 
   return (
     <div className="w-full">

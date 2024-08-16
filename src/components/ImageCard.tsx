@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { incrementCount } from "@/app/Redux/features/imageSlice";
 import { decrementCount } from "@/app/Redux/features/imageSlice";
-import { toggleLike } from "../app/Redux/features/likeSlice";
+import { toggleLike } from "../app/Redux/features/imageSlice";
 import { RootState } from "../app/Redux/store";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
