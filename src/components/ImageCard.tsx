@@ -23,12 +23,8 @@ const ImageCard = ({ url, id }: ImageCardProps) => {
 
   const handleLikeClick = () => {
     dispatch(toggleLike(id)); // Toggle the like state
-    if (!likes[id]) {
-      dispatch(incrementCount(id)); // Increment count if liked
-    } else {
-      dispatch(decrementCount(id)); // Decrement count if unliked
-    }
   };
+
   return (
     <div className="relative bg-white rounded-xl">
       <Image

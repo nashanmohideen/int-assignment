@@ -13,12 +13,7 @@ import Banner from "../components/banner";
 import Text from "../components/text";
 import Carousel from "../components/carousel";
 import ImageCard from "../components/ImageCard";
-import {
-  toggleLike,
-  incrementCount,
-  decrementCount,
-  setImages,
-} from "./Redux/features/imageSlice";
+import { toggleLike, incrementCount, decrementCount, setImages } from "./Redux/features/imageSlice";
 import { RootState } from "./Redux/store";
 
 export default function Home() {
@@ -48,22 +43,18 @@ export default function Home() {
     const savedLikes = localStorage.getItem("likes");
     const savedCounts = localStorage.getItem("counts");
 
-    // Safely parse JSON or fallback to empty object
-    const parsedLikes =
-      savedLikes && savedLikes !== "undefined" ? JSON.parse(savedLikes) : {};
-    const parsedCounts =
-      savedCounts && savedCounts !== "undefined" ? JSON.parse(savedCounts) : {};
+    const parsedLikes = savedLikes ? JSON.parse(savedLikes) : {};
+    const parsedCounts = savedCounts ? JSON.parse(savedCounts) : {};
 
-    // Apply parsed likes
     Object.keys(parsedLikes).forEach((id) => {
       if (parsedLikes[id]) {
         dispatch(toggleLike(id)); // Set initial likes in Redux
       }
     });
 
-    // Apply parsed counts
     Object.keys(parsedCounts).forEach((id) => {
       if (parsedCounts[id] !== undefined) {
+        // Update the count for each image
         const count = parsedCounts[id];
         if (count > 0) {
           for (let i = 0; i < count; i++) {
@@ -77,12 +68,12 @@ export default function Home() {
       }
     });
   }, [dispatch]);
-
-  useEffect(() => {
-    // Save likes and counts to local storage
-    localStorage.setItem("likes", JSON.stringify(likes));
-    localStorage.setItem("counts", JSON.stringify(counts));
-  }, [likes, counts]);
+  
+  // useEffect(() => {
+  //   // Save likes and counts to local storage
+  //   localStorage.setItem("likes", JSON.stringify(likes));
+  //   localStorage.setItem("counts", JSON.stringify(counts));
+  // }, [likes, counts]);
 
   const slides = images.map(({ url, id, count }: any) => ({ url, id, count }));
 
