@@ -1,9 +1,12 @@
 import {configureStore} from "@reduxjs/toolkit"
-import likeReducer from "./features/likeSlice"
+import imageReducer from "./features/imageSlice";
+import likeReducer from "./features/imageSlice"
+
 
 
 const store= configureStore({
     reducer:{
+        image:imageReducer,
         like: likeReducer,
     },
 });

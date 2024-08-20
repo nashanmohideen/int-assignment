@@ -13,13 +13,13 @@ import Banner from "../components/banner";
 import Text from "../components/text";
 import Carousel from "../components/carousel";
 import ImageCard from "../components/ImageCard";
-import { toggleLike } from "./lib/features/likeSlice";
-import { RootState } from "./lib/store";
+import { toggleLike, incrementCount, decrementCount, setImages } from "./Redux/features/imageSlice";
+import { RootState } from "./Redux/store";
 
 export default function Home() {
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const dispatch = useDispatch();
+  const images = useSelector((state: RootState) => state.image.images);
   const likes = useSelector((state: RootState) => state.like.likes);
   const counts = useSelector((state: RootState) => state.like.counts);
 
@@ -27,39 +27,55 @@ export default function Home() {
     fetch("https://hp-api.onrender.com/api/characters")
       .then((response) => response.json())
       .then((data) => {
-        const urls = data.slice(0, 3).map((character: any) => ({
+        const imageData = data.slice(0, 3).map((character: any) => ({
           url: character.image,
           id: character.name,
+          count: 0, // Initialize the count for each image
         }));
-        setImageUrls(urls);
+        dispatch(setImages(imageData)); // Dispatch the images to the Redux store
         setLoading(false);
       })
       .catch((error) => console.error("Error fetching Images: ", error));
-  }, []);
-
-  useEffect(() => {
-    // Load likes from local storage and update Redux state
-    const savedLikes = JSON.parse(localStorage.getItem("likes") || "{}");
-    const savedCounts = JSON.parse(localStorage.getItem("counts") || "{}");
-
-    Object.keys(savedLikes).forEach((id) => {
-      if (savedLikes[id]) {
-        dispatch(toggleLike(id)); // Set initial likes in Redux
-      }
-    });
-    Object.keys(savedCounts).forEach((id) => {
-      if (savedCounts[id] !== undefined) {
-        dispatch(toggleLike(id)); // Set initial counts in Redux
-      }
-    });
   }, [dispatch]);
 
   useEffect(() => {
-    // Save likes to local storage
-    localStorage.setItem("likes", JSON.stringify(likes));
-  }, [likes]);
+    // Load likes and counts from local storage and update Redux state
+    const savedLikes = localStorage.getItem("likes");
+    const savedCounts = localStorage.getItem("counts");
 
-  const slides = imageUrls.map(({ url, id }: any) => ({ url, id }));
+    const parsedLikes = savedLikes ? JSON.parse(savedLikes) : {};
+    const parsedCounts = savedCounts ? JSON.parse(savedCounts) : {};
+
+    Object.keys(parsedLikes).forEach((id) => {
+      if (parsedLikes[id]) {
+        dispatch(toggleLike(id)); // Set initial likes in Redux
+      }
+    });
+
+    Object.keys(parsedCounts).forEach((id) => {
+      if (parsedCounts[id] !== undefined) {
+        // Update the count for each image
+        const count = parsedCounts[id];
+        if (count > 0) {
+          for (let i = 0; i < count; i++) {
+            dispatch(incrementCount(id));
+          }
+        } else {
+          for (let i = 0; i < -count; i++) {
+            dispatch(decrementCount(id));
+          }
+        }
+      }
+    });
+  }, [dispatch]);
+  
+  // useEffect(() => {
+  //   // Save likes and counts to local storage
+  //   localStorage.setItem("likes", JSON.stringify(likes));
+  //   localStorage.setItem("counts", JSON.stringify(counts));
+  // }, [likes, counts]);
+
+  const slides = images.map(({ url, id, count }: any) => ({ url, id, count }));
 
   return (
     <div className="w-full">
@@ -78,8 +94,8 @@ export default function Home() {
           </div>
         ) : (
           <div className="transition-all duration-500 ease-in-out hidden md:grid md:grid-cols-3 lg:grid lg:grid-cols-3 w-fit h-fit items-center rounded-lg gap-2 bg-gray-800 p-3 ">
-            {imageUrls.map(({ url, id }: any) => (
-              <ImageCard key={id} url={url} id={id} />
+            {images.map(({ url, id }: any) => (
+              <ImageCard key={id} url={url} id={id} count={counts[id]} />
             ))}
           </div>
         )}

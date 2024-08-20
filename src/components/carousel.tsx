@@ -5,7 +5,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import ImageCard from "./ImageCard";
 
 interface CarouselProps {
-  slides: { url: string; id: string }[]; // Update the type here
+  slides: { url: string; id: string; count:number; }[]; // Update the type here
 }
 
 export default function Carousel({ slides }: CarouselProps) {
@@ -31,6 +31,7 @@ export default function Carousel({ slides }: CarouselProps) {
           url={slides[curr].url}
           id={slides[curr].id}
           key={slides[curr].id}
+          count={slides[curr].count}
         />
         <button onClick={prev}>
           <FaArrowLeft

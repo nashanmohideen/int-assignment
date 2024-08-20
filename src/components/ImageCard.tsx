@@ -1,14 +1,17 @@
 import React from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleLike } from "../app/lib/features/likeSlice";
-import { RootState } from "../app/lib/store";
+import { incrementCount } from "@/app/Redux/features/imageSlice";
+import { decrementCount } from "@/app/Redux/features/imageSlice";
+import { toggleLike } from "../app/Redux/features/imageSlice";
+import { RootState } from "../app/Redux/store";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 interface ImageCardProps {
   url: string;
   id: string;
+  count: number;
 }
 
 const ImageCard = ({ url, id }: ImageCardProps) => {
@@ -19,7 +22,7 @@ const ImageCard = ({ url, id }: ImageCardProps) => {
   );
 
   const handleLikeClick = () => {
-    dispatch(toggleLike(id));
+    dispatch(toggleLike(id)); // Toggle the like state
   };
 
   return (
