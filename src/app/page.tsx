@@ -1,6 +1,6 @@
 "use client";
 // React and React-related imports
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // Next.js imports
@@ -13,7 +13,12 @@ import Banner from "../components/banner";
 import Text from "../components/text";
 import Carousel from "../components/carousel";
 import ImageCard from "../components/ImageCard";
-import { toggleLike, incrementCount, decrementCount, setImages } from "./Redux/features/imageSlice";
+import {
+  toggleLike,
+  incrementCount,
+  decrementCount,
+  setImages,
+} from "./Redux/features/imageSlice";
 import { RootState } from "./Redux/store";
 
 export default function Home() {
@@ -23,11 +28,15 @@ export default function Home() {
   const likes = useSelector((state: RootState) => state.like.likes);
   const counts = useSelector((state: RootState) => state.like.counts);
 
+  interface Character {
+    image: string;
+    name: string;
+  }
   useEffect(() => {
     fetch("https://hp-api.onrender.com/api/characters")
       .then((response) => response.json())
       .then((data) => {
-        const imageData = data.slice(0, 3).map((character: any) => ({
+        const imageData = data.slice(0, 3).map((character: Character) => ({
           url: character.image,
           id: character.name,
           count: 0, // Initialize the count for each image
@@ -68,7 +77,7 @@ export default function Home() {
       }
     });
   }, [dispatch]);
-  
+
   // useEffect(() => {
   //   // Save likes and counts to local storage
   //   localStorage.setItem("likes", JSON.stringify(likes));
