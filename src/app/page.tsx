@@ -104,7 +104,7 @@ export default function Home() {
         ) : (
           <div className="transition-all duration-500 ease-in-out hidden md:grid md:grid-cols-3 lg:grid lg:grid-cols-3 w-fit h-fit items-center rounded-lg gap-2 bg-gray-800 p-3 ">
             {images.map(({ url, id }: any) => (
-              <ImageCard key={id} url={url} id={id} count={counts[id]} />
+              <ImageCard key={id} url={url} id={id} count={counts[id]} name={id}/>
             ))}
           </div>
         )}

@@ -13,9 +13,10 @@ interface ImageCardProps {
   url: string;
   id: string;
   count: number;
+  name: string;
 }
 
-const ImageCard = ({ url, id }: ImageCardProps) => {
+const ImageCard = ({ url, id, name }: ImageCardProps) => {
   const dispatch = useDispatch();
   const likes = useSelector((state: RootState) => state.like.likes);
   const likeCount = useSelector(
@@ -76,7 +77,7 @@ const ImageCard = ({ url, id }: ImageCardProps) => {
             className="rounded-lg object-center"
           />
           <button
-            className={`absolute bottom-4 right-4 ${
+            className={`absolute bottom-8 right-4 ${
               likes[id] ? "text-red-500" : "text-gray-500"
             }`}
             onClick={handleLikeClick}
@@ -87,12 +88,15 @@ const ImageCard = ({ url, id }: ImageCardProps) => {
               <FavoriteBorderIcon className="h-8 w-8" />
             )}
           </button>
-          <div className="absolute pl-2 bottom-4 left-3 text-white">
+          <div className="absolute pl-1 bottom-8 left-3 text-white">
             Likes: {likeCount}
           </div>
+          <div>
+            <h2 className="font-bold text-center text-black">{id}</h2>
+          </div>
         </div>
-        <div className="text-center mt-4">
-          Additional details about the image can go here.
+        <div className="w-full md:w-[600px] text-center mt-4">
+          <p> Additional details can be added here.</p>{" "}
         </div>
       </Modal>
     </>
