@@ -62,12 +62,7 @@ const ImageCard = ({ url, id, name }: ImageCardProps) => {
           Likes: {likeCount}
         </div>
       </div>
-      <Modal
-        isVisible={modalVisible}
-        onClose={() => {
-          setModalVisible(false);
-        }}
-      >
+      <Modal isVisible={modalVisible} onClose={closeModal}>
         <div className="relative">
           <Image
             src={url}
