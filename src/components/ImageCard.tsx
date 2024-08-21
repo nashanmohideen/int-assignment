@@ -67,13 +67,30 @@ const ImageCard = ({ url, id }: ImageCardProps) => {
           setModalVisible(false);
         }}
       >
-        <Image
-          src={url}
-          width={500}
-          height={500}
-          alt={`Image ${id}`}
-          className="rounded-lg object-center"
-        />
+        <div className="relative">
+          <Image
+            src={url}
+            width={500}
+            height={500}
+            alt={`Image ${id}`}
+            className="rounded-lg object-center"
+          />
+          <button
+            className={`absolute bottom-4 right-4 ${
+              likes[id] ? "text-red-500" : "text-gray-500"
+            }`}
+            onClick={handleLikeClick}
+          >
+            {likes[id] ? (
+              <FavoriteIcon className="h-8 w-8" />
+            ) : (
+              <FavoriteBorderIcon className="h-8 w-8" />
+            )}
+          </button>
+          <div className="absolute pl-2 bottom-4 left-3 text-white">
+            Likes: {likeCount}
+          </div>
+        </div>
         <div className="text-center mt-4">
           Additional details about the image can go here.
         </div>
