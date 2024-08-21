@@ -13,7 +13,7 @@ interface ImageCardProps {
   url: string;
   id: string;
   count: number;
-  name: string;
+  name?: string;
 }
 
 const ImageCard = ({ url, id, name }: ImageCardProps) => {
