@@ -14,9 +14,7 @@ import Banner from "../components/banner";
 import Text from "../components/text";
 import Carousel from "../components/carousel";
 import ImageCard from "../components/ImageCard";
-import Modal from "../components/Modal"; // Import the Modal component
-import RefreshIcon from "@mui/icons-material/Refresh";
-
+import Modal from "../components/Modal";  // Import the Modal component
 import {
   toggleLike,
   incrementCount,
@@ -27,10 +25,10 @@ import { RootState } from "./Redux/store";
 
 export default function Home() {
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<boolean>(false); // Add error state
+  const [error, setError] = useState<string | null>(null);  // Add error state
   const dispatch = useDispatch();
   const images = useSelector((state: RootState) => state.image.images);
-  // const likes = useSelector((state: RootState) => state.like.likes);
+  const likes = useSelector((state: RootState) => state.like.likes);
   const counts = useSelector((state: RootState) => state.like.counts);
 
   interface Character {
@@ -50,7 +48,7 @@ export default function Home() {
       .then((data) => {
         const imageData = data.slice(0, 3).map((character: Character) => ({
           url: character.image,
-          name: character.name,
+          id: character.name,
           alive: character.alive,
           count: 0, // Initialize the count for each image
         }));
@@ -59,7 +57,7 @@ export default function Home() {
       })
       .catch((error) => {
         console.error("Error fetching Images: ", error);
-        setError(error.message); // Set error message
+        setError(error.message);  // Set error message
         setLoading(false);
       });
   }, [dispatch]);
@@ -104,7 +102,7 @@ export default function Home() {
   const slides = images.map(({ url, id, count }: any) => ({ url, id, count }));
 
   const handleCloseModal = () => {
-    setError(false); // Close the modal by resetting the error state
+    setError(null);  // Close the modal by resetting the error state
   };
 
   return (
@@ -125,13 +123,7 @@ export default function Home() {
         ) : (
           <div className="transition-all duration-500 ease-in-out hidden md:grid md:grid-cols-3 lg:grid lg:grid-cols-3 w-fit h-fit items-center rounded-lg gap-2 bg-gray-800 p-3 ">
             {images.map(({ url, id }: any) => (
-              <ImageCard
-                key={id}
-                url={url}
-                id={id}
-                count={counts[id]}
-                name={id}
-              />
+              <ImageCard key={id} url={url} id={id} count={counts[id]} name={id}/>
             ))}
           </div>
         )}
@@ -158,17 +150,14 @@ export default function Home() {
       <Footer />
 
       {/* Modal for error display */}
-      <Modal isVisible={error} onClose={handleCloseModal}>
-        <div className="flex flex-col justify-center items-center h-[100px]">
+      <Modal isVisible={!!error} onClose={handleCloseModal}>
+        <div className="flex flex-col items-center">
           <p>{error}</p>
           <button
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg flex justify-center items-center"
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
             onClick={() => window.location.reload()} // Refresh the page
           >
-            Refresh
-            <span className="ml-2">
-              <RefreshIcon />
-            </span>
+            Refresh Page
           </button>
         </div>
       </Modal>
