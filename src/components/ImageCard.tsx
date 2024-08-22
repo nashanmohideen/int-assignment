@@ -87,7 +87,7 @@ const ImageCard = ({ url, id, name }: ImageCardProps) => {
             Likes: {likeCount}
           </div>
           <div>
-            <h2 className="font-bold text-center text-black">{id}</h2>
+            <h2 className="font-bold text-center text-black">{name}</h2>
           </div>
         </div>
         <div className="w-full md:w-[600px] text-center mt-4">
