@@ -16,7 +16,7 @@ interface ImageCardProps {
   name?: string;
 }
 
-const ImageCard = ({ url, id, name }: ImageCardProps) => {
+const ImageCard = ({ url, id, name,count }: ImageCardProps) => {
   const dispatch = useDispatch();
   const likes = useSelector((state: RootState) => state.like.likes);
   const likeCount = useSelector(
