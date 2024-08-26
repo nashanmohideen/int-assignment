@@ -1,5 +1,3 @@
-// src/utils/fetchData.ts
-
 export async function fetchCharacterData() {
     const response = await fetch("https://hp-api.onrender.com/api/characters");
     if (!response.ok) {
