@@ -3,18 +3,16 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface Image {
   url: string;
   id: string;
+  likes: boolean;
+  count: number;
 }
 
 interface ImageState {
   images: Image[];
-  likes: { [id: string]: boolean };
-  counts: { [id: string]: number }; // Keep counts here
 }
 
 const initialState: ImageState = {
   images: [],
-  likes: {},
-  counts: {},
 };
 
 const imageSlice = createSlice({
@@ -25,19 +23,29 @@ const imageSlice = createSlice({
       state.images = action.payload;
     },
     incrementCount: (state, action: PayloadAction<string>) => {
-      state.counts[action.payload] = (state.counts[action.payload] || 0) + 1;
+      const imageId = action.payload;
+      const image = state.images.find((img) => img.id === imageId);
+      if (image) {
+        image.count += 1;
+      }
     },
     decrementCount: (state, action: PayloadAction<string>) => {
-      state.counts[action.payload] = Math.max((state.counts[action.payload] || 0) - 1, 0);
+      const imageId = action.payload;
+      const image = state.images.find((img) => img.id === imageId);
+      if (image) {
+        image.count = Math.max(image.count - 1, 0);
+      }
     },
     toggleLike: (state, action: PayloadAction<string>) => {
       const imageId = action.payload;
-      if (state.likes[imageId]) {
-        state.likes[imageId] = false;
-        state.counts[imageId] = Math.max((state.counts[imageId] || 0) - 1, 0);
-      } else {
-        state.likes[imageId] = true;
-        state.counts[imageId] = (state.counts[imageId] || 0) + 1;
+      const image = state.images.find((img) => img.id === imageId);
+      if (image) {
+        image.likes = !image.likes;
+        if (image.likes) {
+          image.count += 1;
+        } else {
+          image.count = Math.max(image.count - 1, 0);
+        }
       }
     },
   },
