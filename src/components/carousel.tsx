@@ -5,7 +5,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import ImageCard from "./ImageCard";
 
 interface CarouselProps {
-  slides: { url: string; id: string; count: number }[]; // Update the type here
+  slides: { posterUrl: string; id: string; count: number }[]; // Update the type here
 }
 
 export default function Carousel({ slides }: CarouselProps) {
@@ -28,7 +28,7 @@ export default function Carousel({ slides }: CarouselProps) {
     <div className="overflow-hidden relative flex items-center">
       <div className="flex justify-center w-fit h-full overflow-hidden bg-gray-800 border-4 border-gray-800 rounded-lg max-w-lg md:hidden md:justify-center lg:hidden transform transition ease-in duration-500 p-2">
         <ImageCard
-          url={slides[curr].url}
+          url={slides[curr].posterUrl}
           id={slides[curr].id}
           key={slides[curr].id}
         />

@@ -5,7 +5,7 @@ import { selectImageCounts, selectImages } from "./Redux/features/selectors";
 import { useInitializeImages } from "./Redux/hooks/useInitializeImages";
 
 import Header from "../components/header";
-import Footer from "../components/footer"; 
+import Footer from "../components/footer";
 import Banner from "../components/banner";
 import Text from "../components/text";
 import Carousel from "../components/carousel";
@@ -17,14 +17,15 @@ export default function Home() {
   const images = useSelector(selectImages);
   const counts = useSelector(selectImageCounts);
 
-  const slides = images.map(({ url, id }) => ({
-    url,
+  const slides = images.map(({ posterUrl, id, title }) => ({
+    posterUrl,
+    title: title || `Image ${id}`,
     id,
     count: counts[id] || 0,
   }));
 
   const handleCloseModal = () => {
-    setError(null);
+    setError(false);
   };
 
   return (
@@ -44,8 +45,8 @@ export default function Home() {
           </div>
         ) : (
           <div className="transition-all duration-500 ease-in-out hidden md:grid md:grid-cols-3 lg:grid lg:grid-cols-3 w-fit h-fit items-center rounded-lg gap-2 bg-gray-800 p-3 ">
-            {images.map(({ url, id }) => (
-              <ImageCard key={id} url={url} id={id} name={id} />
+            {images.map(({ posterUrl, id, title }) => (
+              <ImageCard key={id} url={posterUrl} id={id} title={title} />
             ))}
           </div>
         )}
