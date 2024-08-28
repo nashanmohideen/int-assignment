@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { RootState } from '../store'; 
+import { RootState } from '../store'; // Adjust the import path as necessary
 
 const selectImageState = (state: RootState) => state.image;
 
@@ -17,3 +17,4 @@ export const selectImageCounts = createSelector(
     }, {} as { [id: string]: number });
   }
 );
+

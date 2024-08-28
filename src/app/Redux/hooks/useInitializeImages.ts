@@ -1,23 +1,24 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setImages, incrementCount, decrementCount, toggleLike } from "../features/imageSlice";
-import { fetchCharacterData } from "./fetchData";
+import { fetchMovieData } from "./fetchData";
 
 export const useInitializeImages = () => {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchCharacterData()
+    fetchMovieData()
       .then((data) => {
-        const imageData = data.slice(0, 3).map((character: any) => ({
-          url: character.image,
-          id: character.name,
+        const movieData = data.slice(0, 3).map((movie: any) => ({
+          id: movie.id.toString(),
+          title: movie.title,    
+          posterUrl: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
           likes: false, // Initialize as boolean
           count: 0, // Initialize as number
         }));
-        dispatch(setImages(imageData));
+        dispatch(setImages(movieData));
         setLoading(false);
       })
       .catch((error) => {

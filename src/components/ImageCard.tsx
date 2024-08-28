@@ -10,10 +10,10 @@ import Modal from "./Modal";
 interface ImageCardProps {
   url: string;
   id: string;
-  name?: string;
+  title?: string;
 }
 
-const ImageCard = ({ url, id, name }: ImageCardProps) => {
+const ImageCard = ({ url, id, title }: ImageCardProps) => {
   const dispatch = useDispatch();
   const image = useSelector((state: RootState) =>
     state.image.images.find((img) => img.id === id)
@@ -71,7 +71,7 @@ const ImageCard = ({ url, id, name }: ImageCardProps) => {
             alt={`Image ${id}`}
             className="rounded-lg object-center"
           />
-          <h2 className="font-bold text-center text-black">{name || id}</h2>
+          <h2 className="font-bold text-center text-black">{title}</h2>
           <button
             className={`absolute bottom-8 right-4 ${
               likes ? "text-red-500" : "text-gray-500"

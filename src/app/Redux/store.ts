@@ -1,6 +1,6 @@
 import {configureStore} from "@reduxjs/toolkit"
 import imageReducer from "./features/imageSlice";
-import likeReducer from "./features/imageSlice"
+import likeReducer from "./features/imageSlice";
 
 
 

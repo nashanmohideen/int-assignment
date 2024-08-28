@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Image {
-  url: string;
+  posterUrl: string;
   id: string;
+  title:string;
   likes: boolean;
   count: number;
 }
