@@ -1,7 +1,9 @@
+'use client';
+
 import React, { useState } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleLike } from "@/app/Redux/features/imageSlice";
+import { toggleLike, incrementCount, decrementCount } from "@/app/Redux/features/imageSlice";
 import { RootState } from "@/app/Redux/store";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -25,6 +27,11 @@ const ImageCard = ({ url, id, title }: ImageCardProps) => {
 
   const handleLikeClick = () => {
     dispatch(toggleLike(id));
+    if (likes) {
+      dispatch(decrementCount(id));
+    } else {
+      dispatch(incrementCount(id));
+    }
   };
 
   const handleImageClick = () => {
