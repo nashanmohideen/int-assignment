@@ -1,31 +1,45 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setImages, incrementCount, decrementCount, toggleLike } from "../features/imageSlice";
+import {
+  setImages,
+  incrementCount,
+  decrementCount,
+  toggleLike,
+} from "../features/imageSlice";
 import { fetchMovieData } from "./fetchData";
 
 export const useInitializeImages = () => {
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(false); // Updated error type
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchMovieData()
-      .then((data) => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchMovieData();
         const movieData = data.slice(0, 3).map((movie: any) => ({
           id: movie.id.toString(),
-          title: movie.title,    
+          title: movie.title,
           posterUrl: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
           likes: false, // Initialize as boolean
           count: 0, // Initialize as number
         }));
+
+        // Dispatch the images to the Redux store
         dispatch(setImages(movieData));
         setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching Images: ", error);
-        setError(error.message);
+      } catch (error: unknown) {
+        let errorMessage = "An unexpected error occurred.";
+        if (error instanceof Error) {
+          errorMessage = error.message;
+        }
+        console.error("Error fetching Images: ", errorMessage);
+        setError(false);
         setLoading(false);
-      });
+      }
+    };
+
+    fetchData();
   }, [dispatch]);
 
   useEffect(() => {
@@ -56,5 +70,5 @@ export const useInitializeImages = () => {
     });
   }, [dispatch]);
 
-  return { loading, error, setError }; 
+  return { loading, error, setError };
 };

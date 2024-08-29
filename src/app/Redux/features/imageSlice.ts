@@ -42,11 +42,6 @@ const imageSlice = createSlice({
       const image = state.images.find((img) => img.id === imageId);
       if (image) {
         image.likes = !image.likes;
-        if (image.likes) {
-          image.count += 1;
-        } else {
-          image.count = Math.max(image.count - 1, 0);
-        }
       }
     },
   },
