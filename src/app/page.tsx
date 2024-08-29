@@ -4,10 +4,10 @@ import ClientWrapper from "@/components/clientWrapper";
 async function getMovies() {
   try {
     const movies = await fetchMovieData();
-    return movies.slice(0, 3).map((movie: any) => ({
-      id: movie.id.toString(),
+    return movies.map((movie: any) => ({
+      id: movie.id,
       title: movie.title,
-      posterUrl: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+      posterUrl: movie.posterUrl,
       likes: false,
       count: 0,
     }));
@@ -20,7 +20,7 @@ async function getMovies() {
 export default async function Page() {
   const result = await getMovies();
 
-  if ('error' in result) {
+  if ("error" in result) {
     return <ClientWrapper initialMovies={[]} error={result.error} />;
   }
 

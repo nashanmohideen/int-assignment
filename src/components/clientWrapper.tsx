@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import store from '@/app/Redux/store';
 import { setImages } from '@/app/Redux/features/imageSlice';
 import Home from './home';
+import Modal from './Modal';  // Make sure this path is correct
 
 interface ClientWrapperProps {
   initialMovies: {
@@ -33,7 +34,17 @@ function ClientWrapperContent({ initialMovies, error }: ClientWrapperProps) {
     window.location.reload();
   };
 
-  return <Home initialError={localError} onRefresh={handleRefresh} />;
+  return (
+    <>
+      <Modal isVisible={!!localError} onClose={handleRefresh}>
+        <div className="text-center">
+          <h2 className="text-xl font-semibold">Error</h2>
+          <p>{localError}</p>
+        </div>
+      </Modal>
+      <Home initialError={localError} onRefresh={handleRefresh} />
+    </>
+  );
 }
 
 export default function ClientWrapper({ initialMovies, error }: ClientWrapperProps) {
