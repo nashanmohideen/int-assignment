@@ -1,3 +1,5 @@
+'use server';
+
 const apiKey = "67475fb2c5f97ecb4fdc4adc1f3488f3";
 const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`;
 
