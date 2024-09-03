@@ -1,12 +1,11 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Provider } from 'react-redux';
-import store from '@/app/Redux/store';
-import { setImages } from '@/app/Redux/features/imageSlice';
-import Home from './home';
-import Modal from './Modal';  // Make sure this path is correct
+import { useEffect, useState } from "react";
+import { useDispatch, Provider } from "react-redux";
+import store from "@/app/Redux/store";
+import { setImages } from "@/app/Redux/features/imageSlice";
+import Home from "./home";
+import Modal from "./Modal";
 
 interface ClientWrapperProps {
   initialMovies: {
@@ -47,10 +46,9 @@ function ClientWrapperContent({ initialMovies, error }: ClientWrapperProps) {
   );
 }
 
-export default function ClientWrapper({ initialMovies, error }: ClientWrapperProps) {
-  return (
-    <Provider store={store}>
-      <ClientWrapperContent initialMovies={initialMovies} error={error} />
-    </Provider>
-  );
+export default function ClientWrapper({
+  initialMovies,
+  error,
+}: ClientWrapperProps) {
+  return <ClientWrapperContent initialMovies={initialMovies} error={error} />;
 }

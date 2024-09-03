@@ -32,14 +32,14 @@ export default function Carousel({ slides }: CarouselProps) {
           id={slides[curr].id}
           key={slides[curr].id}
         />
-        <button onClick={prev}>
+        <button aria-label="Previous slide" onClick={prev}>
           <FaArrowLeft
             size={35}
             color="black"
             className="absolute left-6 mt-1 p-1 top-6 rounded-full shadow bg-white bg-opacity-80 hover:bg-white hover:text-black"
           />
         </button>
-        <button onClick={next}>
+        <button aria-label="Next slide" onClick={next}>
           <FaArrowRight
             size={35}
             color="black"

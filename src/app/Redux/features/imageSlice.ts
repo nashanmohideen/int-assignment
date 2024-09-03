@@ -48,4 +48,5 @@ const imageSlice = createSlice({
 });
 
 export const { setImages, incrementCount, decrementCount, toggleLike } = imageSlice.actions;
+export type { ImageState };
 export default imageSlice.reducer;
