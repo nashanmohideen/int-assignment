@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Provider } from "react-redux";
-import store from "./Redux/store";
 import "./globals.css";
 import ReduxProvider from "./StoreProvider";
 

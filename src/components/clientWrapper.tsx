@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useDispatch, Provider } from "react-redux";
-import store from "@/app/Redux/store";
+import { useDispatch } from "react-redux";
 import { setImages } from "@/app/Redux/features/imageSlice";
 import Home from "./home";
 import Modal from "./Modal";

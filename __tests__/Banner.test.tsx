@@ -1,11 +1,9 @@
-// Banner.test.tsx
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Banner from '@/components/banner';
 
 describe('Banner Component', () => {
   test('renders the Banner component with correct content', () => {
-    // Render the Banner component
     render(<Banner />);
     
     // Check if the component is in the document

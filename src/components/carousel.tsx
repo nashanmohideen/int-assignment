@@ -5,7 +5,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import ImageCard from "./ImageCard";
 
 interface CarouselProps {
-  slides: { posterUrl: string; id: string; count: number }[]; // Update the type here
+  slides: { posterUrl: string; id: string; count: number }[];
 }
 
 export default function Carousel({ slides }: CarouselProps) {
@@ -21,7 +21,7 @@ export default function Carousel({ slides }: CarouselProps) {
   };
 
   if (slides.length === 0) {
-    return <div className="text-red-500">No images to display</div>; // Handle empty slides
+    return <div className="text-red-500">No images to display</div>;
   }
 
   return (
@@ -47,9 +47,7 @@ export default function Carousel({ slides }: CarouselProps) {
           />
         </button>
       </div>
-      {/* <div className="absolute inset-0 flex items-center justify-between p-1 ">
-       
-      </div> */}
+
       <div className="absolute bottom-4 right-0 left-0 bg-gray">
         <div className="flex items-center justify-center gap-2">
           {slides.map((_, i) => (

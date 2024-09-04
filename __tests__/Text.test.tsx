@@ -6,7 +6,7 @@ describe("Text Component", () => {
   it("should render the component with the correct text", () => {
     render(<Text text="Sample Text" />);
 
-    // Check that the text prop is rendered correctly
+    // CheckS that the text prop is rendered correctly
     const textElement = screen.getByText("Sample Text");
     expect(textElement).toBeInTheDocument();
     expect(textElement).toHaveClass("text-black");
@@ -19,11 +19,11 @@ describe("Text Component", () => {
       </Text>
     );
 
-    // Check that children are rendered correctly
+    // CheckS that children are rendered correctly
     const childElement = screen.getByText("Child Content");
     expect(childElement).toBeInTheDocument();
 
-    // Check that the parent div of the children has the correct styles
+    // CheckS that the parent div of the children has the correct styles
     const parentElement = childElement.parentElement;
     expect(parentElement).toHaveClass("text-black");
   });

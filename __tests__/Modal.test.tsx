@@ -30,6 +30,6 @@ describe("Modal Component", () => {
     );
     // Click the close button using aria-label
     fireEvent.click(screen.getByRole("button", { name: /close/i }));
-    expect(onClose).toHaveBeenCalled(); // Verify onClose was called
+    expect(onClose).toHaveBeenCalled();
   });
 });
