@@ -50,9 +50,9 @@ export default function Home({ initialError, onRefresh }: HomeProps) {
         <Carousel
           slides={images.map(({ posterUrl, id, title, count }) => ({
             posterUrl,
-            title: title || `Image ${id}`,
+            title: title,
             id,
-            count: count || 0,
+            count: count,
           }))}
         />
         <Text text="Text 2">

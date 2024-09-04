@@ -1,26 +1,34 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
+    "lib": ["dom", "dom.iterable", "esnext"],               // Includes DOM and ESNext library features
+    "allowJs": true,                                        // Allows JavaScript files to be compiled
+    "skipLibCheck": true,                                   // Skips type checking of declaration files
+    "strict": true,                                         // Enables all strict type-checking options
+    "noEmit": true,                                         // Prevents emitting of compiled files
+    "esModuleInterop": true,                                // Enables ES module interoperability
+    "module": "esnext",                                     // Specifies the module code generation method
+    "moduleResolution": "node",                             // Resolves modules similar to Node.js
+    "resolveJsonModule": true,                              // Allows importing JSON modules
+    "isolatedModules": true,                                // Ensures each file is treated as a separate module
+    "jsx": "preserve",                                      // Keeps JSX as-is for future transformations
+    "incremental": true,                                    // Enables incremental compilation
+    "types": ["jest", "@testing-library/jest-dom"],         // Includes Jest and Testing Library types
+    "paths": {
+      "@/*": ["./src/*"]                                    // Sets up a path alias for the src directory
+    },
     "plugins": [
       {
-        "name": "next"
+        "name": "next"                                      // Specifies the Next.js plugin for TypeScript
       }
-    ],
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",                                        // Includes Next.js environment definitions
+    "**/*.ts",                                              // Includes all TypeScript files
+    "**/*.tsx",                                             // Includes all TypeScript files with JSX
+    ".next/types/**/*.ts"                                   // Includes Next.js types for internal use
+, "jest.setup.ts", "jest.config.ts"  ],
+  "exclude": [
+    "node_modules"                                          // Excludes node_modules directory
+  ]
 }

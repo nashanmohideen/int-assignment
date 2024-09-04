@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { RootState } from '../store'; // Adjust the import path as necessary
+import { RootState } from '../store';
 
 const selectImageState = (state: RootState) => state.image;
 

@@ -25,7 +25,7 @@ export async function fetchMovieData() {
       posterUrl: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
     }));
 
-    console.log('Data:', movies);
+    console.log('Data fetched.', movies);
     return movies;
   } catch (error) {
     console.error("Error fetching movie data: ", error);
