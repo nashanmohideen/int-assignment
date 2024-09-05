@@ -21,7 +21,7 @@ export default async function Page() {
   const result = await getMovies();
   // console.log("Result:", result);
 
-  if ('error' in result) {  
+  if ("error" in result) {
     return <ClientWrapper initialMovies={[]} error={result.error} />;
   }
 

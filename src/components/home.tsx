@@ -74,7 +74,7 @@ export default function Home({ initialError, onRefresh }: HomeProps) {
         </div>
       </main>
       <Footer />
-      
+
       <Modal isVisible={!!error} onClose={handleCloseModal}>
         {" "}
         <div className="flex flex-col items-center">
