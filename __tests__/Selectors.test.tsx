@@ -1,5 +1,8 @@
-import { selectImages, selectImageCounts } from "@/Redux/features/selectors";
-import { RootState } from "@/Redux/store";
+import {
+  selectImages,
+  selectImageCounts,
+} from "@/app/Redux/features/selectors";
+import { RootState } from "@/app/Redux/store";
 
 describe("Selectors", () => {
   const mockState: RootState = {

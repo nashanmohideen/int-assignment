@@ -1,4 +1,4 @@
-import { fetchMovieData } from "../Redux/hooks/fetchData";
+import { fetchMovieData } from "./Redux/hooks/fetchData";
 import ClientWrapper from "@/components/clientWrapper";
 
 async function getMovies() {

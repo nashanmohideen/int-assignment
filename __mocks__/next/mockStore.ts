@@ -1,5 +1,5 @@
 import configureStore from 'redux-mock-store';
-import { RootState } from '@/Redux/store';
+import { RootState } from '@/app/Redux/store';
 
 const mockImages = [
   { id: '1', posterUrl: 'url1', title: 'Image 1', count: 1, likes: false },
