@@ -7,8 +7,8 @@ import {
   toggleLike,
   incrementCount,
   decrementCount,
-} from "@/app/Redux/features/imageSlice";
-import { RootState } from "@/app/Redux/store";
+} from "@/Redux/features/imageSlice";
+import { RootState } from "@/Redux/store";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Modal from "./Modal";

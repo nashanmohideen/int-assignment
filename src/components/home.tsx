@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { selectImages } from "@/app/Redux/features/selectors";
+import { selectImages } from "@/Redux/features/selectors";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import Banner from "../components/banner";
@@ -74,7 +74,7 @@ export default function Home({ initialError, onRefresh }: HomeProps) {
         </div>
       </main>
       <Footer />
-      
+
       <Modal isVisible={!!error} onClose={handleCloseModal}>
         {" "}
         <div className="flex flex-col items-center">

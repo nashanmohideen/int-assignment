@@ -1,4 +1,4 @@
-import { fetchMovieData } from "@/app/Redux/hooks/fetchData";
+import { fetchMovieData } from "@/Redux/hooks/fetchData";
 
 // Setup mocks before each test
 beforeEach(() => {
